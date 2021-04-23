@@ -1,0 +1,10 @@
+{
+    "name": "user/hexlet-php",
+    "authors": [
+        {
+            "name": "dilianur",
+            "email": "dilianur.kanboto@gmail.com"
+        }
+    ],
+    "require": {}
+}
