@@ -217,3 +217,123 @@ print_r(getSuperSeriesWinner($scores = [
   [4, 3],
   [6, 5],
 ]));
+
+//МОЕ РЕШЕНИЯ
+////Реализуйте функцию makeCensored, которая заменяет каждое вхождение указанных слов в предложении на последовательность $#%! и возвращает полученную строку. Аргументы:
+//Текст
+//Набор стоп слов
+//Словом считается любая непрерывная последовательность символов, включая любые спецсимволы (без пробелов).
+function makeCensored(string $text, array $array)
+{
+  $new = []; 
+  //  if (count($array) > 2 || count($array) < 2) {
+  foreach(explode(' ', $text) as $mass) {
+   $new[] = str_replace($array, '$#%!', $mass);
+        // print_r($new);      
+    }
+    
+    if (count($array) <= [2] || count($array) >= [2]) {
+      return implode(' ', $new);
+    }      
+  } 
+  
+  //РЕШЕНИЯ УЧИТЕЛЯ
+  function makeCensored(string $text, array $stopWords)
+{
+    $words = explode(' ', $text);
+    $result = [];
+    foreach ($words as $word) {
+        $result[] = in_array($word, $stopWords) ? '$#%!' : $word;
+    }
+ 
+    return implode(' ', $result);
+}
+//Реализуйте функцию countUniqChars, которая получает на вход строку и считает, сколько символов (уникальных символов) использовано в этой строке. Например, в строке 'yy' всего один уникальный символ — y. А в строке '111yya!' — четыре уникальных символа: 1, y, a и !.
+//Задание необходимо выполнить без использования функций array_unique и count_chars.
+function countUniqChars($text)
+{
+  // $str = str_split($text);
+  // $str = iconv_strlen($text);
+  // print_r($str);
+ // $i = 0;
+ $count = [];
+ for ($i = 0; $i < strlen($text); $i++) {
+      if (!in_array($text[$i], $count)) {
+        $count[] = $text[$i];  
+      }
+  }
+  return count($count);
+}
+print_r(countUniqChars('You know nothing Jon Snow')); //13
+print_r("\n");
+function bubbleSort($coll)
+{
+    $size = count($coll);
+    // do..while цикл. Работает почти идентично while
+    // Разница в проверке. Тут она делается не до выполнения тела, а после.
+    // Такой цикл полезен там, где надо выполнить тело хотя бы раз в любом случае.
+    do {
+        // Объявляем переменную swapped, значение которой показывает был ли
+        // совершен обмен элементов во время перебора массива
+        $swapped = false;
+        // Перебираем массив и меняем местами элементы, если предыдущий
+        // больше, чем следующий
+        for ($i = 0; $i < $size - 1; $i++) {
+            if ($coll[$i] > $coll[$i + 1]) {
+                // temp – временная переменная для хранения текущего элемента
+                $temp = $coll[$i];
+                $coll[$i] = $coll[$i + 1];
+                $coll[$i + 1] = $temp;
+                // Если сработал if и была совершена перестановка,
+                // присваиваем swapped значение true
+                $swapped = true;
+            }
+        }
+        // Уменьшаем счетчик на 1, т.к. самый большой элемент уже находится
+        // в конце массива
+        $size--;
+    } while ($swapped); // продолжаем, пока swapped === true
+
+    return $coll;
+}
+
+print_r(bubbleSort([3, 2, 10, -2, 0]));
+// => Array
+// => (
+// =>     [0] => -2
+// =>     [1] => 0
+// =>     [2] => 2
+// =>     [3] => 3
+// =>     [4] => 10
+// => )
+//сбалансированные скобочки
+function isBalan($str)
+{
+    $count = 0;
+    for ($i = 0; $i < strlen($str); $i++) {
+        $count = $str[$i] === '(' ? $count + 1 : $count - 1;
+        if ($count < 0) {
+            return false;
+        }
+    }
+ 
+    return $count === 0;
+}
+print_r(isBalan('('));
+//балансировка скобок, в арифметических выражениях
+function checkIfBalanced($str)
+{
+    $stack = [];
+    for ($i = 0; $i < strlen($str); $i++) {
+        $cu = $str[$i];
+        if ($cu === '(') {
+        array_push($stack, $cu);
+    } elseif ($cu === ')') {
+        if (empty($stack)) {
+            return false;
+        }
+        array_pop($stack);
+      }
+    }
+    return count($stack) === 0;
+}
