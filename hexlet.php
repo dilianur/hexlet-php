@@ -337,3 +337,145 @@ function checkIfBalanced($str)
     }
     return count($stack) === 0;
 }
+//Реализуйте функцию normalize(), которая "нормализует" данные переданного урока. 
+//То есть приводит их к определенному виду.
+//На вход этой функции подается ассоциативный массив, описывающий собой урок курса. 
+//В уроке содержатся два поля: имя и описание.
+//по ссылке
+function normalize(array &$lesson): void
+{
+    $lesson['name'] = ucfirst(mb_strtolower($lesson['name']));
+    $lesson['description'] = mb_strtolower($lesson['description']);
+}
+//Реализуйте функцию get, которая извлекает из массива элемент по указанному индексу, если индекс существует, либо возвращает значение по умолчанию. Функция принимает на вход три аргумента:
+//Массив
+//Индекс
+//Значение по умолчанию (равно null)
+echo "<br>";
+
+function get(array $arr, int $index, $value = null)
+{
+	// $arr = ['moscow', 'london', 'berlin', 'porto', null];
+	if (isset($arr) === $index) {
+		return true;
+	} else {
+		return $value;
+	}    
+}
+
+ 
+print_r(get($arr, 1)); // london
+echo "<br>";
+function getFileInfo($filepath)
+{
+    // Инициализация массива
+    $info = [];
+
+    $pathParts = explode('/', $filepath);
+    // print_r($pathParts);
+    $filename = $pathParts[array_key_last($pathParts)];
+    // print_r($filename); 
+    $info['filename'] = $filename;
+    // print_r($info);
+
+    $nameParts = explode('.', $filename);
+    // print_r($nameParts);
+    $extension = $nameParts[array_key_last($nameParts)];
+    // print_r($extension);
+    $info['extension'] = $extension;
+    print_r($info);
+
+    // return $info;
+}
+print_r(getFileInfo('/path/to/index.php'));
+echo "<br>";
+//Реализуйте функцию getDomainInfo(), которая принимает на вход имя сайта и возвращает информацию о нем:
+function getDomainInfo($sayt)
+{
+
+	$itog = [];
+
+// 	$filename1 = explode(':', $sayt);
+// 	$a = $filename1[array_key_first($filename1)];
+// 	var_dump($a);
+	
+// 	$filename = explode('//', $sayt);
+// 	$b = $filename[array_key_last($filename)];
+// 	print_r($b);
+// 	$namePa = substr($sayt, 0, 5);
+// 	$nametwo = str_replace($namePa, 'http', $namePa);
+// 	// $mass = explode(' ', $nametwo);
+// 	var_dump($nametwo);
+		
+// // return $itog;
+	$result = explode('://', $sayt);
+	// print_r($result);
+	$itog = [];
+	$val = 'http';
+	for ($i = 0; $i < strlen($sayt); $i++) { 
+		$one = $sayt[$i];
+		$result = explode('://', $sayt);
+		$f = $result[array_key_last($result)];
+		// $itog['name'] = $f;
+		$b = $result[array_key_first($result)];
+		if (isset($b)) {
+			$itog = ['name' => $f, 'chere' => 'http'];
+		} else {
+			$itog = ['name' => $f, 'chere' => $b];
+		}
+				
+	}
+
+		return $itog;
+}
+
+print_r(getDomainInfo('https://hexlet.io'));
+// substr()
+// str_replace()
+echo "<br>";
+// $a = 'https://hexlet.io';
+// $b = str_replace('https', 'http', $a);
+// print_r($b);https://hexlet.io
+// stripos если есть такая подстрака возвращает false
+// str_starts_with
+$a = 'https://hexlet.io';
+$b = strrpos($a, 'https');
+print_r($b);
+
+function getDomainInfo($sayt)
+{
+    $scheme = '';
+    if (substr($sayt, 0, 8) === 'https://') {
+        $scheme = 'https';
+    } else {
+        $scheme = 'http';
+    }
+ 
+    $name = str_replace("{$scheme}://", '', $sayt);
+ 
+    return ['scheme' => $scheme, 'name' => $name];
+}
+//Реализуйте функцию enlargeArrayImage, 
+//которая принимает изображение в виде двумерного массива и увеличивает его в два раза.
+function Flatten(array $array)
+{
+    return Collection\flatten(
+    array_map(fn($arr) => [$arr, $arr], $array)
+    );
+}
+function enlargeArrayImage($array2)
+{
+    $name = array_map(fn($arr2) => Flatten($arr2), $array2);
+    return Flatten($name);
+}
+print_r(enlargeArrayImage([
+  ['*','*','*','*'],
+  ['*',' ',' ','*'],
+  ['*',' ',' ','*'],
+  ['*','*','*','*']
+], [
+  ['*','*','*','*'],
+  ['*',' ',' ','*'],
+  ['*',' ',' ','*'],
+  ['*','*','*','*']
+]));
