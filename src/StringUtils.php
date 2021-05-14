@@ -2,6 +2,7 @@
 function capitalize($text)
 {
     $nameText = strtoupper($text[0]);
-    $return $nameText;
+    $names = substr($text, 1);
+    $return "{$nameText}{$names}";
 }
-print_r('hello');
+print_r(capitalize('hello'));
